@@ -12,4 +12,9 @@ export class CreateUserInput {
   @IsNotEmpty({ message: 'Este campo não pode estar vazio' })
   @Field()
   email: string;
+
+  @IsString()
+  @IsNotEmpty({ message: 'Este campo não pode estar vazio' })
+  @Field()
+  password: string;
 }

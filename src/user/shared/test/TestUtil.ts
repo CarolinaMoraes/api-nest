@@ -5,6 +5,7 @@ export default class TestUtil {
     const user = new User();
     user.email = 'valid@mail.com';
     user.name = 'User Name';
+    user.password = '1234567';
     user.id = '1';
     return user;
   }

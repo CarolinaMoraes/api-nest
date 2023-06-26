@@ -3,20 +3,30 @@ import { UserService } from './user.service';
 import { CreateUserInput } from './dto/create-user-input';
 import { User } from './user.entity';
 import { UpdateUserInput } from './dto/update-user-input';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from 'src/auth/auth.guard';
 
 @Resolver('User')
 export class UserResolver {
   constructor(private userService: UserService) {}
 
+  @UseGuards(GqlAuthGuard)
   @Query(() => [User])
   async users(): Promise<User[]> {
     const users = await this.userService.findAllUsers();
     return users;
   }
 
+  @UseGuards(GqlAuthGuard)
   @Query(() => User)
   async findUser(@Args('id') id: string): Promise<User> {
     const user = await this.userService.findUserById(id);
+    return user;
+  }
+
+  @Query(() => User)
+  async findUserByEmail(@Args('email') email: string): Promise<User> {
+    const user = await this.userService.findUserByEmail(email);
     return user;
   }
 
